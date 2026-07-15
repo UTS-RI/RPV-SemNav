@@ -106,7 +106,7 @@
                   <span>Paper</span>
                 </a>
               </span>
-              <span class="link-block">
+              <span class="link-block-non">
                 <a href="<arXiv link"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -278,10 +278,10 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-          Zero-shot ObjectNav methods increasingly use vision-language priors, but direct object-object similarity in the latent space is often a weak proxy for spatial co-occurrence. We present an analytical, training-free semantic navigation pipeline that mediates object relationships through a compact room lexicon. Each object label is mapped to a CLIP-derived <b>Room Probability Vector (RPV)<\b>, and object-target co-occurrence is computed from RPV distribution overlap. These scores are projected onto a value map using geodesic flood-fill propagation (Fast Marching Method), with adaptive signal decay, and are used to rank frontiers by semantic score for navigation. 
-          <\p>
+          Zero-shot ObjectNav methods increasingly use vision-language priors, but direct object-object similarity in the latent space is often a weak proxy for spatial co-occurrence. We present an analytical, training-free semantic navigation pipeline that mediates object relationships through a compact room lexicon. Each object label is mapped to a CLIP-derived <b>Room Probability Vector (RPV)</b>, and object-target co-occurrence is computed from RPV distribution overlap. These scores are projected onto a value map using geodesic flood-fill propagation (Fast Marching Method), with adaptive signal decay, and are used to rank frontiers by semantic score for navigation. 
+          </p>
           <p>
-          Together, these components form an integrated, training‑free, object‑centric pipeline for open‑vocabulary zero‑shot navigation. Results show that our object-centric approach improves Success Rate (SR) and Success by weighted inverse Path Length (SPL) by a relative <b>3%<\b> and <b>1.3%<\b>, respectively, compared to image-holistic baselines on the HM3D dataset validation split, while preserving interpretability and open-vocabulary flexibility.
+          Together, these components form an integrated, training‑free, object‑centric pipeline for open‑vocabulary zero‑shot navigation. Results show that our object-centric approach improves Success Rate (SR) and Success by weighted inverse Path Length (SPL) by a relative <b>3%</b> and <b>1.3%</b>, respectively, compared to image-holistic baselines on the HM3D dataset validation split, while preserving interpretability and open-vocabulary flexibility.
           </p>
         </div>
       </div>
@@ -305,46 +305,12 @@
 </section>
 
 
-<!-- Dataset Information
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Dataset Information + Structure</h2>
-        <div class="content has-text-justified">
-          <p>
-            To collect the RGB, event, and point cloud data, the sensor suite utilised consisted of:
-          </p>
-          <ul>
-		<li><b>Inivation DAVIS346 event camera:</b> Stream of event data (up to 1MHz) with each event being a tuple of x and y positions in the image space, t the timestamp, and p the polarity of the corresponding illumination change; RGB images at 23Hz; 6-DoF IMU at 1kHz (3-axis gyroscope and 3-axis accelerometer).
-		</li>
-		<li><b>Blickfeld Cube1 LiDAR:</b> 3D point clouds at 7.9Hz with point-wise timestamps.
-		</li>
-	  </ul>
-	  <p>
-	  The sensor’s measurements and output of the motion-capture system were recorded with ROS. We use the rpg dvs ros driver for the DVS camera and the Blickfeld ROS driver for the LiDAR. The sensor suite and helmets worn by persons in the scene were equipped with a set of reflective markers tracked by the Vicon system, subsequently providing the 6-DoF pose of the 2 persons and sensor suite in an arbitrarily fixed reference frame. For convenience and utility, the RGB portion of the dataset is labelled with the class identifier corresponding to the colour helmet worn by each person. In total, the data collected consisted of approximately:
-	  </p>
-	  <ul>
-		<li>774 million events (~25000 variable length event-array messages)</li>
-		<li>22000 RGB images</li>
-		<li>6700 point clouds</li>
-		<li>70000 ground truth poses each for two persons in the scene</li>
-	  </ul>
-	  <p>
-	  <b>Dataset Structure Here or to the right (could make this section double column - to complete last)</b>
-	  </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
--->
-
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Dataset Information -->
     <div class="columns is-centered">
       <!-- Left Column: Dataset Information -->
+      <!--
       <div class="column is-three-thirds">
         <h2 class="title is-3" style="text-align: center;">Dataset Information</h2>
         <div class="content has-text-justified">
@@ -368,8 +334,10 @@
           </ul>
         </div>
       </div>
+      -->
 
       <!-- Right Column: Tree Structure -->
+      <!--
       <div class="column is-two-fifths">
         <h2 class="title is-3" style="text-align: center;">Dataset Structure</h2>
         <ul class="tree">
@@ -432,8 +400,8 @@
           </li>
         </ul>
       </div>
+      -->
     </div>
-    <!--/ Dataset Information -->
   </div>
 </section>
 
