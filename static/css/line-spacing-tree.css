@@ -1,0 +1,19 @@
+/* Reduce space between list items */
+.directory-tree {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove padding for root ul */
+  margin: 0; /* Remove margin for root ul */
+}
+
+.directory-tree li {
+  position: relative;
+  padding-left: 0.1rem; /* Space for bullet and indentation */
+  margin-bottom: 0.5rem; /* Space between list items */
+  line-height: 0.8;
+}
+
+.directory-tree ul {
+  padding-left: 1rem; /* Indentation for nested lists */
+  margin: 0; /* Reset margin */
+}
+

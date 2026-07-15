@@ -1,0 +1,50 @@
+/* Center the container within the page */
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Add padding/margin for symmetry if needed */
+.section {
+  padding: 2rem 1rem;
+}
+
+/* Additional styles for better layout */
+.columns.is-centered {
+  justify-content: center;
+}
+
+.directory-tree {
+  list-style-type: none;
+  padding-left: 1em;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.directory-tree ul {
+  margin-left: 1em;
+  list-style-type: none;
+  position: relative;
+}
+
+.directory-tree ul:before {
+  content: '';
+  display: block;
+  width: 1px;
+  background-color: #ddd;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.5em;
+}
+
+.directory-tree li:before {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1px;
+  background-color: #ddd;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
