@@ -1,0 +1,2 @@
+habitat-baselines==0.3.320250127
+habitat-lab==0.3.320250127
