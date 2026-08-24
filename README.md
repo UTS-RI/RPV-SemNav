@@ -284,7 +284,7 @@ Required checkpoints:
 - `yoloe-26x-seg.pt`
 - `ade20k-semseg-r50_model_final_500878.pkl`
 
-Download links for these checkpoints are a work in progress. Once obtained, checkpoints should be saved to the `checkpoints` directory inside the project root directory.
+Download links for these checkpoints are a work in progress. Once obtained, SAM3 and YOLOE checkpoints should be saved to the `checkpoints` directory inside the project root directory, ADE20K checkpoints for Mask2Former should be saved in {ROOT_DIR}/Mask2Former/checkpoints/
 
 ## Running Evaluation
 
