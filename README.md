@@ -102,7 +102,7 @@ TO DO:
 
     From the project root folder:
     ```bash
-    pip install -e ./frontier_exploration -e ./vlfm -c <path to requirements-new.txt>
+    pip install -e ./frontier_exploration_src -e ./vlfm -c <path to requirements-new.txt>
     ```
 
 11. **Install detectron2**
