@@ -8,6 +8,8 @@ TO DO:
 
 ## Installation
 
+**This has been tested on Ubuntu 22.04 & 24.04**
+
 1. **Install miniconda3**
 
    Follow the instructions at https://www.anaconda.com/docs/getting-started/miniconda/install/linux-install
@@ -19,8 +21,10 @@ TO DO:
    Note: you can undo this later by running `conda init --reverse $SHELL`.
 
 2. **Create the conda environment with base packages**
+   
+   Inside the "env_installation_files" directory:
    ```bash
-   conda env create -f environment-loose.yml
+   conda env create -f environment-rpv.yml
    ```
    This creates an environment named `rpv`.
 
@@ -31,10 +35,12 @@ TO DO:
 
 4. **Install base Python packages**
    ```bash
-   pip install -r requirements-new.txt
+   pip install -r requirements-rpv.txt
    ```
 
 5. **Clone habitat-sim v0.3.3 into the project root directory**
+   
+   In the project root directory:
    ```bash
    git clone --branch v0.3.3 https://github.com/facebookresearch/habitat-sim.git
    ```
@@ -191,7 +197,7 @@ If CUDA compatibility returns `False` after building habitat-sim, force a clean 
    HEADLESS=True \
    WITH_CUDA=True \
    WITH_BULLET=True \
-     pip install . --no-build-isolation -c <path to requirements-new.txt from step 4>
+     pip install . --no-build-isolation -c <path to requirements-new.txt from step 4> -v
    ```
 
    **Note:** The official `BUILD_FROM_SOURCE.md` on habitat-sim's `main` branch documents the `HABITAT_WITH_CUDA` / `HABITAT_BUILD_GUI_VIEWERS` env vars for a newer scikit-build-core-based build system. `v0.3.3` predates that migration and uses a legacy `setup.py` that reads different, unprefixed variable names: `WITH_CUDA`, `HEADLESS`, `WITH_BULLET`. Using `main`'s documented variable names against this tag will silently build **without** CUDA — pip reports success either way, since the wrong env var name is just ignored, not rejected. This is the most common cause of step 7 failing.
@@ -202,5 +208,5 @@ If CUDA compatibility returns `False` after building habitat-sim, force a clean 
    git clone --branch v0.3.3 https://github.com/facebookresearch/habitat-sim.git
    cd habitat-sim
    HEADLESS=True WITH_CUDA=True WITH_BULLET=True \
-     pip install . --no-build-isolation -c ../requirements.txt
+     pip install . --no-build-isolation -c <path to requirements-new.txt from step 4> -v
    ```
