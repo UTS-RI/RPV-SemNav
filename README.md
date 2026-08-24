@@ -210,3 +210,116 @@ If CUDA compatibility returns `False` after building habitat-sim, force a clean 
    HEADLESS=True WITH_CUDA=True WITH_BULLET=True \
      pip install . --no-build-isolation -c <path to requirements-new.txt from step 4> -v
    ```
+
+## Dataset Download
+
+HM3D dataset download is completed using the steps outlined under "Downloading the HM3D dataset" in VLFM's README: https://github.com/rai-opensource/vlfm#dart-downloading-the-hm3d-dataset
+
+1. **Obtain a Matterport Token ID and Secret**
+
+2. **Set environment variables**
+   ```bash
+   export MATTERPORT_TOKEN_ID=<FILL IN FROM YOUR ACCOUNT INFO IN MATTERPORT>
+   export MATTERPORT_TOKEN_SECRET=<FILL IN FROM YOUR ACCOUNT INFO IN MATTERPORT>
+   export DATA_DIR=</path/to/data> # e.g. /home/mak/research/datasets/hm3d/data
+   export HM3D_OBJECTNAV=https://dl.fbaipublicfiles.com/habitat/data/datasets/objectnav/hm3d/v1/objectnav_hm3d_v1.zip
+   ```
+
+   We recommend creating an external directory to house the dataset, and creating symbolic links to the dataset directories inside the RPV `data` directory.
+
+3. **Download the HM3D validation set**
+   ```bash
+   python -m habitat_sim.utils.datasets_download \
+     --username $MATTERPORT_TOKEN_ID --password $MATTERPORT_TOKEN_SECRET \
+     --uids hm3d_val_v0.2 \
+     --data-path $DATA_DIR &&
+
+   # Download HM3D ObjectNav dataset episodes
+   wget $HM3D_OBJECTNAV &&
+   unzip objectnav_hm3d_v1.zip &&
+   mkdir -p $DATA_DIR/datasets/objectnav/hm3d &&
+   mv objectnav_hm3d_v1 $DATA_DIR/datasets/objectnav/hm3d/v1 &&
+   rm objectnav_hm3d_v1.zip
+   ```
+
+   **Note:** These steps download HM3DSem-v0.2 scenes paired with `objectnav_hm3d_v1.zip` episodes. Per habitat-lab's dataset documentation, v1 episodes are officially paired with v0.1 scenes — however, this is the exact combination specified in VLFM's README, and is what was used to produce the results in this repository.
+
+   Verify with `find -maxdepth 4` that the directory tree follows the structure:
+   ```
+   .
+   ./scene_datasets
+   ./scene_datasets/hm3d
+   ./versioned_data
+   ./versioned_data/hm3d-0.2
+   ./versioned_data/hm3d-0.2/val-habitat-files.json.gz
+   ./versioned_data/hm3d-0.2/val-semantic-configs-files.json.gz
+   ./versioned_data/hm3d-0.2/val-configs-files.json.gz
+   ./versioned_data/hm3d-0.2/val-semantic-annots-files.json.gz
+   ./versioned_data/hm3d-0.2/hm3d
+   ./versioned_data/hm3d-0.2/hm3d/val
+   ./versioned_data/hm3d-0.2/hm3d/hm3d_annotated_basis.scene_dataset_config.json
+   ./datasets
+   ./datasets/objectnav
+   ./datasets/objectnav/hm3d
+   ./datasets/objectnav/hm3d/v1
+   ```
+
+4. **Copy `hm3d_annotated_val_basis` into `scene_datasets/hm3d`**
+   ```bash
+   cd <path to ${DATA_DIR}/versioned_data/hm3d-0.2/hm3d/val>
+   cp hm3d_annotated_val_basis.scene_dataset_config.json ..
+   ```
+
+5. **Create symbolic links from the dataset installation location to the RPV-SemNav `data` directory**
+   ```bash
+   cd <path to ${RPV_ROOT}/data>
+   ln -s <path to ${DATA_DIR}/datasets> datasets
+   ln -s <path to ${DATA_DIR}/scene_datasets> scene_datasets
+   ```
+
+## Model Checkpoints
+
+Required checkpoints:
+- `sam3.pt`
+- `yoloe-26x-seg.pt`
+- `ade20k-semseg-r50_model_final_500878.pkl`
+
+Download links for these checkpoints are a work in progress. Once obtained, checkpoints should be saved to the `checkpoints` directory inside the project root directory.
+
+## Running Evaluation
+
+Running evaluation requires two terminal windows: one to launch the models for the vision pipeline, and one to run the Habitat simulator.
+
+1. **Launch the vision pipeline models**
+
+   From the project root directory:
+   ```bash
+   ./scripts/launch_dl_servers.sh
+   ```
+   Note: you may need to run `chmod +x` on this file first.
+
+2. **Run the evaluation script**
+
+   Run the following to evaluate on the HM3D dataset:
+   ```bash
+   python -m vlfm.run
+   ```
+
+   To save video output of validation episodes, run with the following environment variables set:
+   ```bash
+   python -m vlfm.run habitat_baselines.video_dir=${VIDEO_DIR} \
+     habitat_baselines.eval.video_option=${VIDEO_OPTION} \
+     habitat_baselines.video_fps=${VIDEO_FPS}
+   ```
+
+   For example, we set:
+   ```bash
+   VIDEO_DIR=<path to directory to save video output>
+   VIDEO_OPTION='["disk"]'
+   VIDEO_FPS=2
+   ```
+
+   To save episode data to a CSV file at the end of the evaluation, you can also set the `CSV_PATH` environment variable. This is not required to be passed as an argument. For example:
+   ```bash
+   export CSV_PATH={path to logging directory}/eval_stats.csv
+   ```
